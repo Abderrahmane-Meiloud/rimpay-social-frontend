@@ -1,0 +1,38 @@
+.settings-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  opacity: 0.7;
+  cursor: default;
+}
+
+.settings-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: var(--gray-bg);
+  color: #9CA3AF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.settings-description {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.settings-badge {
+  font-size: 11px;
+  font-weight: 600;
+  color: #6B7280;
+  background-color: #E5E7EB;
+  border: 1px solid #D1D5DB;
+  border-radius: 4px;
+  padding: 3px 8px;
+  align-self: flex-start;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}

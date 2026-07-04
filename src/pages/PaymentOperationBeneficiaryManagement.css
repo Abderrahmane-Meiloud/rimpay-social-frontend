@@ -1,0 +1,120 @@
+.mgmt-header-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.mgmt-section-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+
+.mgmt-table-wrapper {
+  overflow-x: auto;
+}
+
+.mgmt-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.mgmt-table th,
+.mgmt-table td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.mgmt-table th {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  background-color: var(--gray-bg);
+}
+
+.mgmt-table tr:hover {
+  background-color: var(--gray-bg);
+}
+
+.mgmt-confirm-panel {
+  padding: 12px 16px;
+  margin: 4px 0 8px 0;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.mgmt-confirm-exclude {
+  background-color: #fef3e2;
+  border: 1px solid #fcd34d;
+  color: #92400e;
+}
+
+.mgmt-confirm-reinclude {
+  background-color: #d1fae5;
+  border: 1px solid #6ee7b7;
+  color: #065f46;
+}
+
+.mgmt-confirm-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.mgmt-block-reason {
+  font-size: 12px;
+  color: #92400e;
+  font-style: italic;
+}
+
+.mgmt-payment-badge {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+.mgmt-payment-none {
+  background-color: var(--gray-bg);
+  color: var(--text-muted);
+}
+
+.mgmt-readonly-note {
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--text-muted);
+  font-style: italic;
+  background-color: var(--gray-bg);
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.mgmt-result-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.mgmt-result-success {
+  background-color: #d1fae5;
+  color: #065f46;
+  border: 1px solid #6ee7b7;
+}
+
+.mgmt-result-error {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fca5a5;
+}

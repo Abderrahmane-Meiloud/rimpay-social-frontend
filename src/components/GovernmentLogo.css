@@ -1,0 +1,16 @@
+.gov-logo {
+  border-radius: 50%;
+  background-color: var(--green-primary);
+  border: 3px solid var(--yellow-logo);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.gov-logo-inner {
+  color: var(--white);
+  font-weight: 700;
+  font-size: 1.1em;
+  letter-spacing: 0.5px;
+}
