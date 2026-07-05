@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { Users, CheckCircle2, Wallet, AlertTriangle, Gauge, UserCog, Clock, BookOpen, RefreshCw, ShieldAlert } from 'lucide-react';
+import { Users, CheckCircle2, Wallet, AlertTriangle, Gauge, UserCog, Clock, BookOpen, RefreshCw } from 'lucide-react';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   LineChart, Line,
@@ -96,16 +96,9 @@ const operationColumns = [
 function Dashboard() {
   const { can } = usePermissions();
   const [period, setPeriod] = useState('LAST_12_MONTHS');
-  // Real production data by default. The ministerial demo scenario is an
-  // opt-in view, never the default — it must never be presented as normal
-  // production data.
-  const [demoOnly, setDemoOnly] = useState(false);
 
-  const fetcher = useCallback(
-    () => getDashboardSummary(period, demoOnly ? 'MINISTERIAL_DEMO' : undefined),
-    [period, demoOnly],
-  );
-  const { data, loading, error, reload } = useApi(fetcher, [period, demoOnly]);
+  const fetcher = useCallback(() => getDashboardSummary(period), [period]);
+  const { data, loading, error, reload } = useApi(fetcher, [period]);
 
   const { data: recentAnomaliesData } = useApi(() => listAnomalies({ limit: 5 }), []);
   const { data: recentAuditData } = useApi(() => listAuditLogs({ limit: 5 }), []);
@@ -131,33 +124,6 @@ function Dashboard() {
         title="Tableau de bord"
         subtitle="Vue d'ensemble des opérations de paiement social"
       />
-
-      {demoOnly && (
-        <div className="dashboard-demo-banner">
-          <ShieldAlert size={16} />
-          <span>Données fictives — Démonstration institutionnelle</span>
-          <button
-            type="button"
-            className="btn btn-sm btn-secondary"
-            style={{ marginLeft: 'auto' }}
-            onClick={() => setDemoOnly(false)}
-          >
-            Revenir aux données réelles
-          </button>
-        </div>
-      )}
-
-      {!demoOnly && (
-        <div className="dashboard-demo-toggle">
-          <button
-            type="button"
-            className="btn btn-sm btn-secondary"
-            onClick={() => setDemoOnly(true)}
-          >
-            <ShieldAlert size={14} /> Voir la démonstration ministérielle
-          </button>
-        </div>
-      )}
 
       <div className="grid dashboard-stats-grid" style={{ marginBottom: 16 }}>
         <StatCard icon={Users} label="Bénéficiaires actifs" value={formatNumber(data.activeBeneficiaries)} accent="green" />

@@ -61,27 +61,6 @@
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
 }
 
-.dashboard-demo-banner {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  background-color: var(--warning-bg, #FEF3C7);
-  color: var(--warning-deep, #92400E);
-  border: 1px solid var(--warning, #D97706);
-  border-radius: 8px;
-  padding: 8px 14px;
-  font-size: 13px;
-  font-weight: 600;
-  margin-bottom: 16px;
-}
-
-.dashboard-demo-toggle {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 16px;
-}
-
 .dashboard-operation-link {
   color: var(--ink);
   font-weight: 600;

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { X, FileBarChart, Star, Plus, Edit, UserPlus } from 'lucide-react';
+import { X, FileBarChart, Plus, Edit, UserPlus } from 'lucide-react';
 import PageHeader from '../components/PageHeader';
 import DataTable from '../components/DataTable';
 import StatusBadge from '../components/StatusBadge';
@@ -13,11 +13,6 @@ import { listPrograms, getProgram } from '../services/programsService';
 import { listOperations } from '../services/operationsService';
 import { formatCurrency, formatNumber } from '../utils/format';
 import { mapStatus } from '../utils/statusMap';
-
-// The M1 ministerial demo dataset seeds exactly one flagship programme
-// under this code. It is visually highlighted so a presenter can find it
-// immediately, without hardcoding any beneficiary or payment data.
-const DEMO_PROGRAM_CODE = 'MDEMO-PNSF';
 
 function Programs() {
   const { can } = usePermissions();
@@ -62,14 +57,7 @@ function Programs() {
       key: 'name',
       header: 'Programme',
       wrap: true,
-      render: (row) => (
-        <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-          {row.code === DEMO_PROGRAM_CODE && (
-            <Star size={14} color="var(--green-primary)" fill="var(--green-primary)" />
-          )}
-          {row.name}
-        </span>
-      ),
+      render: (row) => row.name,
     },
     { key: 'code', header: 'Code' },
     { key: 'type', header: 'Type', render: (row) => row.type || '—' },
@@ -151,9 +139,6 @@ function Programs() {
         <div className="card" style={{ marginBottom: 16 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
             <h2 className="card-title" style={{ margin: 0, display: 'flex', alignItems: 'center', gap: 8 }}>
-              {detail?.code === DEMO_PROGRAM_CODE && (
-                <Star size={16} color="var(--green-primary)" fill="var(--green-primary)" />
-              )}
               {detail ? detail.name : 'Chargement...'}
             </h2>
             <button
