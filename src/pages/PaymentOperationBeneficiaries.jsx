@@ -9,6 +9,7 @@ import { useApi } from '../hooks/useApi';
 import { getOperation, listAssignedBeneficiaries, assignBeneficiaries } from '../services/operationsService';
 import { listBeneficiaries } from '../services/beneficiariesService';
 import { mapStatus } from '../utils/statusMap';
+import { maskNni } from '../utils/mask';
 import './PaymentOperationBeneficiaries.css';
 
 function PaymentOperationBeneficiaries() {
@@ -229,7 +230,7 @@ function PaymentOperationBeneficiaries() {
                           </td>
                           <td>{ben.registryCode || '—'}</td>
                           <td>{ben.fullName}</td>
-                          <td>{ben.nni || '—'}</td>
+                          <td>{maskNni(ben.nni)}</td>
                           <td>{ben.locality?.name || '—'}</td>
                           <td>
                             <StatusBadge status={mapStatus(ben.status)} />

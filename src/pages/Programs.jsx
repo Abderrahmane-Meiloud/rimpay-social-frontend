@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { X, FileBarChart, Star } from 'lucide-react';
+import { X, FileBarChart, Star, Plus, Edit, UserPlus } from 'lucide-react';
 import PageHeader from '../components/PageHeader';
 import DataTable from '../components/DataTable';
 import StatusBadge from '../components/StatusBadge';
@@ -8,6 +8,7 @@ import LoadingState from '../components/LoadingState';
 import ErrorState from '../components/ErrorState';
 import EmptyState from '../components/EmptyState';
 import { useApi } from '../hooks/useApi';
+import { usePermissions } from '../hooks/usePermissions';
 import { listPrograms, getProgram } from '../services/programsService';
 import { listOperations } from '../services/operationsService';
 import { formatCurrency, formatNumber } from '../utils/format';
@@ -19,6 +20,7 @@ import { mapStatus } from '../utils/statusMap';
 const DEMO_PROGRAM_CODE = 'MDEMO-PNSF';
 
 function Programs() {
+  const { can } = usePermissions();
   const { data, loading, error, reload } = useApi(() => listPrograms({ limit: 50 }), []);
   const [detail, setDetail] = useState(null);
   const [detailLoading, setDetailLoading] = useState(false);
@@ -95,13 +97,29 @@ function Programs() {
       key: 'actions',
       header: '',
       render: (row) => (
-        <button
-          className="btn btn-secondary btn-sm"
-          onClick={() => handleConsult(row.id)}
-          disabled={detailLoading}
-        >
-          Consulter
-        </button>
+        <div style={{ display: 'flex', gap: 6 }}>
+          <button
+            className="btn btn-secondary btn-sm"
+            onClick={() => handleConsult(row.id)}
+            disabled={detailLoading}
+          >
+            Consulter
+          </button>
+          {can('programs.update') && (
+            <Link to={`/programmes/${row.id}/modifier`} className="btn btn-secondary btn-sm">
+              <Edit size={14} /> Modifier
+            </Link>
+          )}
+          {can('users.create') && (
+            <Link
+              to="/utilisateurs"
+              state={{ createAccountFor: 'programme', programId: row.id }}
+              className="btn btn-secondary btn-sm"
+            >
+              <UserPlus size={14} /> Créer un compte programme
+            </Link>
+          )}
+        </div>
       ),
     },
   ];
@@ -122,6 +140,11 @@ function Programs() {
       <PageHeader
         title="Programmes sociaux"
         subtitle="Référentiel des programmes de protection sociale nationale"
+        actions={can('programs.create') ? (
+          <Link to="/programmes/nouveau" className="btn btn-primary">
+            <Plus size={16} /> Nouveau programme
+          </Link>
+        ) : null}
       />
 
       {(detailLoading || detail || detailError) && (

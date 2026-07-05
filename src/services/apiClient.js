@@ -27,7 +27,11 @@ async function request(path, options = {}) {
 
   const res = await fetch(`${BASE_URL}${path}`, { ...options, headers });
 
-  if (res.status === 401) {
+  // /auth/login itself returning 401 means invalid credentials (or an
+  // OPERATOR account without an active linked Operator) — not an expired
+  // session. Let the caller (Login page) show a clean message instead of
+  // hard-redirecting, which would wipe that message off the screen.
+  if (res.status === 401 && path !== '/auth/login') {
     localStorage.removeItem('accessToken');
     window.location.href = '/login';
     throw new ApiError(401, 'Session expirée');
@@ -36,6 +40,10 @@ async function request(path, options = {}) {
   const contentType = res.headers.get('content-type') || '';
   const isJson = contentType.includes('application/json');
   const data = isJson ? await res.json() : await res.text();
+
+  if (res.status === 401) {
+    throw new ApiError(401, 'Accès non autorisé ou compte opérateur non activé.', isJson ? data : null);
+  }
 
   if (res.status === 403) {
     throw new ApiError(403, 'Accès refusé : vous ne disposez pas des autorisations nécessaires pour cette action.', isJson ? data : null);

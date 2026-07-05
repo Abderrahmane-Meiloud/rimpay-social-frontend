@@ -7,7 +7,7 @@ const SECTIONS = [
     id: 'roles',
     icon: Users,
     title: 'Rôles',
-    description: 'Gestion des rôles utilisateurs : administrateur, superviseur, agent terrain.',
+    description: 'Gestion des rôles utilisateurs : ADMIN_TAAZOUR, PROGRAMME, OPERATOR.',
   },
   {
     id: 'permissions',

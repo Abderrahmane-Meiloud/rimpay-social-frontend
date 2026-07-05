@@ -96,7 +96,10 @@ const operationColumns = [
 function Dashboard() {
   const { can } = usePermissions();
   const [period, setPeriod] = useState('LAST_12_MONTHS');
-  const [demoOnly, setDemoOnly] = useState(true);
+  // Real production data by default. The ministerial demo scenario is an
+  // opt-in view, never the default — it must never be presented as normal
+  // production data.
+  const [demoOnly, setDemoOnly] = useState(false);
 
   const fetcher = useCallback(
     () => getDashboardSummary(period, demoOnly ? 'MINISTERIAL_DEMO' : undefined),
@@ -129,18 +132,32 @@ function Dashboard() {
         subtitle="Vue d'ensemble des opérations de paiement social"
       />
 
-      <div className="dashboard-demo-banner">
-        <ShieldAlert size={16} />
-        <span>Données fictives — Démonstration institutionnelle</span>
-        <button
-          type="button"
-          className={`btn btn-sm ${demoOnly ? 'btn-primary' : 'btn-secondary'}`}
-          style={{ marginLeft: 'auto' }}
-          onClick={() => setDemoOnly((v) => !v)}
-        >
-          {demoOnly ? 'Vue démonstration ministérielle' : 'Vue complète (toutes données)'}
-        </button>
-      </div>
+      {demoOnly && (
+        <div className="dashboard-demo-banner">
+          <ShieldAlert size={16} />
+          <span>Données fictives — Démonstration institutionnelle</span>
+          <button
+            type="button"
+            className="btn btn-sm btn-secondary"
+            style={{ marginLeft: 'auto' }}
+            onClick={() => setDemoOnly(false)}
+          >
+            Revenir aux données réelles
+          </button>
+        </div>
+      )}
+
+      {!demoOnly && (
+        <div className="dashboard-demo-toggle">
+          <button
+            type="button"
+            className="btn btn-sm btn-secondary"
+            onClick={() => setDemoOnly(true)}
+          >
+            <ShieldAlert size={14} /> Voir la démonstration ministérielle
+          </button>
+        </div>
+      )}
 
       <div className="grid dashboard-stats-grid" style={{ marginBottom: 16 }}>
         <StatCard icon={Users} label="Bénéficiaires actifs" value={formatNumber(data.activeBeneficiaries)} accent="green" />

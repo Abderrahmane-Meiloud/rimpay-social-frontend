@@ -13,6 +13,7 @@ import {
   reincludeOperationBeneficiary,
 } from '../services/operationsService';
 import { mapStatus } from '../utils/statusMap';
+import { maskNni } from '../utils/mask';
 import './PaymentOperationBeneficiaryManagement.css';
 
 const PAGE_LIMIT = 20;
@@ -263,7 +264,7 @@ function BeneficiaryRow({ ben, canManage, actionType, isConfirming, onStartConfi
       <tr>
         <td>{ben.registryCode || '—'}</td>
         <td>{ben.fullName}</td>
-        <td>{ben.nni || '—'}</td>
+        <td>{maskNni(ben.nni)}</td>
         <td>{ben.locality || '—'}</td>
         <td>
           {ben.paymentExists ? (

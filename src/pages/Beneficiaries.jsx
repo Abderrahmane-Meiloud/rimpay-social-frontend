@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { UserPlus } from 'lucide-react';
+import { UserPlus, UploadCloud } from 'lucide-react';
 import PageHeader from '../components/PageHeader';
 import DataTable from '../components/DataTable';
 import StatusBadge from '../components/StatusBadge';
@@ -75,9 +75,18 @@ function Beneficiaries() {
       <PageHeader
         title="Bénéficiaires"
         subtitle="Gestion et contrôle qualité des données du Registre Social"
-        actions={can('beneficiaries.create') ? (
-          <Link to="/beneficiaires/nouveau" className="btn btn-primary"><UserPlus size={16} /> Nouveau</Link>
-        ) : null}
+        actions={(
+          <div style={{ display: 'flex', gap: 8 }}>
+            {can('beneficiaries.import') && (
+              <Link to="/beneficiaires/import" className="btn btn-secondary">
+                <UploadCloud size={16} /> Importer
+              </Link>
+            )}
+            {can('beneficiaries.create') && (
+              <Link to="/beneficiaires/nouveau" className="btn btn-primary"><UserPlus size={16} /> Nouveau</Link>
+            )}
+          </div>
+        )}
       />
 
       <div className="card filters-card">

@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard';
 import Beneficiaries from './pages/Beneficiaries';
 import BeneficiaryDetails from './pages/BeneficiaryDetails';
 import BeneficiaryForm from './pages/BeneficiaryForm';
+import BeneficiaryImport from './pages/BeneficiaryImport';
 import PaymentOperations from './pages/PaymentOperations';
 import PaymentOperationDetails from './pages/PaymentOperationDetails';
 import PaymentOperationForm from './pages/PaymentOperationForm';
@@ -16,7 +17,11 @@ import Agents from './pages/Agents';
 import Anomalies from './pages/Anomalies';
 import AuditLogs from './pages/AuditLogs';
 import Programs from './pages/Programs';
+import ProgramForm from './pages/ProgramForm';
+import Operators from './pages/Operators';
+import Users from './pages/Users';
 import Reports from './pages/Reports';
+import RequirePermission from './components/RequirePermission';
 
 function ProtectedRoute({ children }) {
   const { isAuthenticated, isLoading } = useAuth();
@@ -53,7 +58,40 @@ function AppRoutes() {
       >
         <Route path="/" element={<Dashboard />} />
         <Route path="/programmes" element={<Programs />} />
+        <Route
+          path="/programmes/nouveau"
+          element={
+            <RequirePermission permission="programs.create">
+              <ProgramForm />
+            </RequirePermission>
+          }
+        />
+        <Route
+          path="/programmes/:id/modifier"
+          element={
+            <RequirePermission permission="programs.update">
+              <ProgramForm />
+            </RequirePermission>
+          }
+        />
+        <Route path="/operateurs" element={<Operators />} />
+        <Route
+          path="/utilisateurs"
+          element={
+            <RequirePermission permission="users.read">
+              <Users />
+            </RequirePermission>
+          }
+        />
         <Route path="/beneficiaires" element={<Beneficiaries />} />
+        <Route
+          path="/beneficiaires/import"
+          element={
+            <RequirePermission permission="beneficiaries.import">
+              <BeneficiaryImport />
+            </RequirePermission>
+          }
+        />
         <Route path="/beneficiaires/nouveau" element={<BeneficiaryForm />} />
         <Route path="/beneficiaires/:id/modifier" element={<BeneficiaryForm />} />
         <Route path="/beneficiaires/:id" element={<BeneficiaryDetails />} />

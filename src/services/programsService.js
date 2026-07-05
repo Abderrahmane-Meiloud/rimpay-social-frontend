@@ -16,3 +16,11 @@ export function listPrograms(query) {
 export function getProgram(id) {
   return api.get(`/programs/${id}`);
 }
+
+export function createProgram(payload) {
+  return api.post('/programs', payload);
+}
+
+export function updateProgram(id, payload) {
+  return api.patch(`/programs/${id}`, payload);
+}

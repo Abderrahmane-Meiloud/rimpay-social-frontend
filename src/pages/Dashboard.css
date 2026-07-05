@@ -76,6 +76,12 @@
   margin-bottom: 16px;
 }
 
+.dashboard-demo-toggle {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
 .dashboard-operation-link {
   color: var(--ink);
   font-weight: 600;

@@ -11,6 +11,7 @@ import { getOperation, getOperationPayments, transitionOperationStatus, listAssi
 import { cancelPayment, getPayment } from '../services/paymentsService';
 import { formatCurrency, formatNumber } from '../utils/format';
 import { mapStatus } from '../utils/statusMap';
+import { maskNni } from '../utils/mask';
 import './PaymentOperationDetails.css';
 
 const TRANSITION_MAP = {
@@ -236,7 +237,7 @@ function PaymentOperationDetails() {
                   <tr key={ab.id}>
                     <td>{ab.registryCode || '—'}</td>
                     <td>{ab.fullName}</td>
-                    <td>{ab.nni || '—'}</td>
+                    <td>{maskNni(ab.nni)}</td>
                     <td>{ab.locality || '—'}</td>
                     <td><StatusBadge status={mapStatus(ab.inclusionStatus)} /></td>
                   </tr>

@@ -24,3 +24,7 @@ export function createBeneficiary(payload) {
 export function updateBeneficiary(id, payload) {
   return api.patch(`/beneficiaries/${id}`, payload);
 }
+
+export function importBeneficiaries(beneficiaries) {
+  return api.post('/beneficiaries/import', { beneficiaries });
+}

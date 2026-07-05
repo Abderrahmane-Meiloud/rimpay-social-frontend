@@ -3,14 +3,12 @@ import { useAuth } from '../context/AuthContext';
 import './Topbar.css';
 
 const ROLE_LABELS = {
-  ADMIN: 'Administrateur système',
-  PROGRAM_MANAGER: 'Gestionnaire de programme',
-  SUPERVISOR: 'Superviseur',
-  AGENT: 'Agent terrain',
-  AUDITOR: 'Auditeur',
+  ADMIN_TAAZOUR: 'Administration TAAZOUR',
+  PROGRAMME: 'Gestionnaire de programme',
+  OPERATOR: 'Opérateur',
 };
 
-const ROLE_PRIORITY = ['ADMIN', 'PROGRAM_MANAGER', 'SUPERVISOR', 'AGENT', 'AUDITOR'];
+const ROLE_PRIORITY = ['ADMIN_TAAZOUR', 'PROGRAMME', 'OPERATOR'];
 
 function getPrimaryRoleLabel(roles) {
   if (!roles || roles.length === 0) return null;
